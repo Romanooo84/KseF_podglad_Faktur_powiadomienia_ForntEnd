@@ -1,145 +1,62 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useState } from 'react'
-import { getInvoices, getHarmonogram, getInvoice } from '../functions/fetchToBackend'
+import { InvoicesData } from "../components/InvoicesData";
+import { PaymentSchedule } from "../components/paymentShcedule";
+import { InvoiceData } from "../components/InvoiceData";
+import { SearchItem } from "../components/searchItem";
 import { logout } from "../functions/loginToBackend";
-
+import css from "./home.module.css";
 
 function Home() {
   const navigate = useNavigate();
-  const [invocesRender, setInvoicesRender] = useState(null)
-  const [harmonogramRender, setHarmonogramRender] = useState()
-  const [invoiceNumber, setInvoiceNumber] = useState()
-  const [invoiceRender, setInvoiceRender] = useState()
-  const [invoiceDataRender, setInvoiceDataRender] = useState(null)
-  const [produkty, setProdukty]=useState(null)
+  const [active, setActive] = useState(null); // "invoices" | "schedule" | "invoice" | null
 
-   const handleLogout = async() => {
-    await logout()
+  const handleLogout = async () => {
+    await logout();
     navigate("/login");
   };
 
-    const getInvoicseData = async()=>{
-      console.log('pobieram listę faktur')
-      const data=await getInvoices()
-      const lista = Object.entries(data).map(([numerFaktury, dane], key) => (
-      <div key={key}> 
-          firma: {dane.NazwaFirmy},
-          nr faktury: {numerFaktury},
-          kwota: {Number(dane.kwota)},
-          termin: {dane.terminPlatnosci}
-      </div>
-      ));
-      console.log(lista)
-      setInvoicesRender(lista)
-    }
-
-    const getHarmonogramData=async()=>{
-      const data = await getHarmonogram ()
-      const markup = data.map((harmonogram, key)=>(
-        <div key={key}>
-          <p>tydzien: {harmonogram.weekKey}</p>
-          <p>kwota: {harmonogram.total}</p>
-        </div>
-      ))
-      setHarmonogramRender(markup)
-    }
-
-    const showInvoiceData = (produkty) => {
-      console.log(produkty)
-      const markup=
-      <table>
-        <tbody>
-          <tr>
-            <th>nazwa</th>
-            <th>cena za szt</th>
-            <th>liczba sztuk</th>
-            <th>kwota</th>
-          </tr>
-          {produkty.map((invoice, index) => (
-            <tr key={index}>
-              <td>{invoice.nazwa}</td>
-              <td> {invoice.cena_za_szt}</td>
-              <td> {invoice.liczba_sztuk}</td>
-              <td> {invoice.kwota}</td>
-            </tr>
-          ))}
-          </tbody>
-      </table>
-      setInvoiceDataRender(markup);
-    };
-
-const getInvoiceData = async (e) => {
-  e?.preventDefault?.(); // jeśli odpalasz z <form onSubmit>
-
-  const data = await getInvoice(invoiceNumber);
-   setProdukty(data);
-
-  setInvoiceRender(
-    <div>
-      <p>Nazwa Firmy: {data.NazwaFirmy}</p>
-      <p>Kwota Brutto: {data.kwota}</p>
-      <p>Kwota Netto: {data.kwota_netto}</p>
-      <p>Podatek VAT: {data.VAT}</p>
-      <p>Data Faktury: {data.data_faktury}</p>
-      <p>Termin Płatnosci: {data.terminPlatnosci}</p>
-    </div>
-  );
-};
+  const toggle = (name) => {
+    setActive((prev) => (prev === name ? null : name)); // klik ponownie = chowa
+  };
 
   return (
-    <div>
-      <h1>Home</h1>
-      <button onClick={handleLogout}>Wyloguj</button>
-       <>
-          {invocesRender ? (
-            <div>
-              <button type="button" onClick={() => setInvoicesRender(null)}>
-                ukryj listę faktur
-              </button>
-              {invocesRender}
-            </div>
-          ) : (
-            <div>
-              <button type="button" onClick={getInvoicseData}>
-                Lista faktur
-              </button>
-            </div>
-          )}
-          <div>
-            <button onClick={getHarmonogramData}>Harmonogram</button>
-            {harmonogramRender}
-          </div>
-         <div>
-          <input value={invoiceNumber || ""} onChange={(e) => setInvoiceNumber(e.target.value)} />
-          <button type="button" onClick={getInvoiceData}>znajdz fakture</button>
-          {invoiceRender}
-        </div>
-       {invoiceDataRender ? (
-          <div>
-            <button
-              type="button"
-              onClick={() => setInvoiceDataRender(null)}
-            >
-              ukryj zawartość faktury
-            </button>
-
-            <div>
-              {invoiceDataRender}
-            </div>
-          </div>
-        ) : (
-          <button
-            type="button"
-            onClick={() => showInvoiceData(produkty.produkty)}
-          >
-            pokaż zawartość faktury
+    <>
+    <header>
+         <h1>Home</h1>
+        <button onClick={handleLogout}>Wyloguj</button>
+    </header>
+    <main className={css.homeDiv}>
+     
+      <div className={css.buttonsDiv}>
+        <div className={css.menu}>
+          <button type="button" onClick={() => toggle("invoices")}>
+            {active === "invoices" ? "Ukryj listę faktur" : "Lista faktur"}
           </button>
-        )}
-      </>
-    </div>
+
+          <button type="button" onClick={() => toggle("schedule")}>
+            {active === "schedule" ? "Ukryj harmonogram" : "Harmonogram płatności"}
+          </button>
+
+          <button type="button" onClick={() => toggle("invoice")}>
+            {active === "invoice" ? "Ukryj fakturę" : "Szukaj faktury"}
+          </button>
+
+          <button type="button" onClick={() => toggle("searchItem")}>
+            {active === "searchItem" ? "Ukryj wyszukiwanie" : "Szukaj pozycji na fakturach"}
+          </button>
+        </div>
+
+        <div className={css.content}>
+          {active === "invoices" && <InvoicesData />}
+          {active === "schedule" && <PaymentSchedule />}
+          {active === "invoice" && <InvoiceData />}
+          {active === "searchItem" && <SearchItem />}
+        </div>
+      </div>
+    </main>
+    </>
   );
 }
 
 export default Home;
-
-

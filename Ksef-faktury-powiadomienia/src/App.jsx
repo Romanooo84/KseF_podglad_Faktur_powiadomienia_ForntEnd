@@ -2,6 +2,8 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Login from "./pages/login";
 import Home from "./pages/Home";
 import ProtectedRoute from "./auth/protectedRoute";
+import './App.css'
+
 
 function App() {
   return (

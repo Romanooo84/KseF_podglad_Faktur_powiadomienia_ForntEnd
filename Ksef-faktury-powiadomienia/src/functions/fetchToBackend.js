@@ -1,36 +1,41 @@
-const link = 'https://organizerfaktur.pl'
+const link = "https://organizerfaktur.pl";
 
-const getInvoices = async () => {
-  const res = await fetch(`${link}/invoices`, {
+export const fetchWithAuth = async (url, options = {}) => {
+  const res = await fetch(url, {
     credentials: "include",
+    ...options,
   });
 
-  const text = await res.text(); // ✅ MUSI BYĆ text()
-
-  // Parsuj JSON tylko jeśli wygląda jak JSON:
-  if (text.trim().startsWith("{") || text.trim().startsWith("[")) {
-    const data = JSON.parse(text);
-    return data;
+  // 🔴 jeśli brak autoryzacji → wracamy do loginu
+  if (res.status === 401) {
+    window.location.href = "/";
+    return;
   }
 
-  throw new Error("Serwer nie zwrócił JSON. Zobacz log BODY/CONTENT-TYPE.");
+  return res;
 };
 
-const getHarmonogram = async () => {
-  const res = await fetch(`${link}/harmonogram`, {
-    credentials: "include",
-  });
+export const getInvoices = async () => {
+  const res = await fetchWithAuth(`${link}/invoices`);
 
-  const harmonogram = await res.json(); // ✅ MUSI BYĆ text()
+  const text = await res.text();
 
- return harmonogram
+  if (text.trim().startsWith("{") || text.trim().startsWith("[")) {
+    return JSON.parse(text);
+  }
 
+  throw new Error("Serwer nie zwrócił JSON.");
 };
 
-const getInvoice = async (invoiceNumber) => {
-  const res = await fetch(`${link}/getinvoice?nr=${invoiceNumber}`, {
-    credentials: "include",
-  });
+export const getHarmonogram = async () => {
+  const res = await fetchWithAuth(`${link}/harmonogram`);
+  return await res.json();
+};
+
+export const getInvoice = async (invoiceNumber) => {
+  const res = await fetchWithAuth(
+    `${link}/getinvoice?nr=${invoiceNumber}`
+  );
 
   if (!res.ok) {
     const err = await res.json();
@@ -40,6 +45,15 @@ const getInvoice = async (invoiceNumber) => {
   return await res.json();
 };
 
-
-
-export { getInvoices, getHarmonogram, getInvoice  };
+export const getItem = async (item) => {
+  const res = await fetchWithAuth(
+    `${link}/searchforitem?item=${item}`
+  );
+ if (!res.ok) {
+    const err = await res.json();
+    throw new Error(err.message || "Błąd wyszukiwania");
+  }
+  const data=await res.json()
+  console.log(data)
+  return data;
+};

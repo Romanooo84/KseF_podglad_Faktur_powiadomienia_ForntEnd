@@ -1,0 +1,17 @@
+th{
+    min-width: 150px;
+    font-size: 20px;
+    height: 40px;
+}
+
+th:nth-child(even) {
+  background-color: #f0f0f0;
+}
+
+th:nth-child(odd) {
+  background-color: #8c95ad;
+}
+
+thead th{
+  border-bottom: 30px solid white;
+}

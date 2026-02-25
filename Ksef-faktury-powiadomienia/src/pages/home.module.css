@@ -1,0 +1,51 @@
+header{
+    display: flex;
+    margin: 0 0 20px 0;
+    justify-content: space-around;
+    align-items: center;
+}
+
+button{
+    background-color: rgba(116, 116, 131, 0.397);
+    width: 200px;
+    height: 50px;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    transition: transform 1s ease,   background-color 1s ease;
+    border: none;
+}
+
+button:hover{
+     transform: scale(1.075);
+     background-color: rgba(98, 98, 184, 0.397);
+     border: none;
+}
+
+.homeDiv{
+    margin: 0 auto
+}
+
+.buttonsDiv{
+     display: flex;
+     flex-direction: row;
+     justify-content: space-between;
+}
+
+.menu{
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-direction: column;
+    width: 250px;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.content{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 1200px;
+    align-items: flex-start
+}
