@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginToBackend as loginApi } from "../functions/loginToBackend";
+import logo from '../assets/Faktury-KSeF-API-REST-e1752601326284.jpg'
+import css from './login.module.css'
 
 export default function Login() {
   const [login, setLogin] = useState("");
@@ -26,10 +28,9 @@ export default function Login() {
   };
 
   return (
-    <div>
-      <h1>Logowanie</h1>
-
-      <form onSubmit={handleSubmit}>
+    <div className={css.loginDiv}>
+      <img src={logo} className={css.logo}></img>
+      <form onSubmit={handleSubmit} className={css.loginForm}>
         <input
           value={login}
           onChange={(e) => setLogin(e.target.value)}

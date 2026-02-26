@@ -1,0 +1,22 @@
+.logo{
+    width: 300px;
+    height: 270px;
+    object-fit: contain;
+}
+
+.loginDiv{
+    display: flex;
+    align-items: center;
+    gap:20px;
+    justify-content: center;
+    height: 100vh;
+    
+}
+
+.loginForm{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+

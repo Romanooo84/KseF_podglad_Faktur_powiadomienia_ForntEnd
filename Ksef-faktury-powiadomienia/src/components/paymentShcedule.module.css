@@ -6,3 +6,11 @@ table{
     font-size: 20px;
     background-color: inherit !important;
 }
+
+@media (max-width: 576px) {
+    table{
+        width: 350px;
+    }
+
+}
+

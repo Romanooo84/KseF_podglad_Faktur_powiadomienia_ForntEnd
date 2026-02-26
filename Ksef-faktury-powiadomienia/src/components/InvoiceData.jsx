@@ -88,10 +88,10 @@ export const InvoiceData = ({ invoiceNo = "" }) => {
                   <th>Nazwa firmy</th>
                   <th>Numer faktury</th>
                   <th>Kwota brutto</th>
-                  <th>Kwota netto</th>
-                  <th>VAT</th>
-                  <th>Data faktury</th>
-                  <th>Termin płatności</th>
+                  <th className={css.isHidden}>Kwota netto</th>
+                  <th className={css.isHidden}>VAT</th>
+                  <th className={css.isHidden}>Data faktury</th>
+                  <th className={css.isHidden}>Termin płatności</th>
                   <th>Akcja</th>
                 </tr>
               </thead>
@@ -100,10 +100,10 @@ export const InvoiceData = ({ invoiceNo = "" }) => {
                   <td>{invoice.NazwaFirmy}</td>
                   <td>{invoice.nrFaktury}</td>
                   <td>{formatPL(invoice.kwota)} zł</td>
-                  <td>{formatPL(invoice.kwota_netto)} zł</td>
-                  <td>{formatPL(invoice.VAT)} zł</td>
-                  <td>{invoice.data_faktury}</td>
-                  <td>{invoice.terminPlatnosci??'----'}</td>
+                  <td className={css.isHidden}>{formatPL(invoice.kwota_netto)} zł</td>
+                  <td className={css.isHidden}>{formatPL(invoice.VAT)} zł</td>
+                  <td className={css.isHidden}>{invoice.data_faktury}</td>
+                  <td className={css.isHidden}>{invoice.terminPlatnosci??'----'}</td>
                   <td>
                     <button className={css.shownButton} type="button" onClick={() => setIsItemsShown((v) => !v)}>
                       {isItemsShown ? "Ukryj zawartość faktury" : "Pokaż zawartość faktury"}
@@ -117,10 +117,10 @@ export const InvoiceData = ({ invoiceNo = "" }) => {
               <td>{invoice.NazwaFirmy}</td>
               <td>{invoice.nrFaktury}</td>
               <td>{formatPL(invoice.kwota)} zł</td>
-              <td>{formatPL(invoice.kwota_netto)} zł</td>
-              <td>{formatPL(invoice.VAT)} zł</td>
-              <td>{invoice.data_faktury}</td>
-              <td>{invoice.terminPlatnosci??'----'}</td>
+              <td className={css.isHidden}>{formatPL(invoice.kwota_netto)} zł</td>
+              <td className={css.isHidden}>{formatPL(invoice.VAT)} zł</td>
+              <td className={css.isHidden}>{invoice.data_faktury}</td>
+              <td className={css.isHidden}>{invoice.terminPlatnosci??'----'}</td>
               <td>
                 <button className={css.shownButton} type="button" onClick={() => setIsItemsShown((v) => !v)}>
                   {isItemsShown ? "Ukryj zawartość faktury" : "Pokaż zawartość faktury"}
@@ -135,8 +135,8 @@ export const InvoiceData = ({ invoiceNo = "" }) => {
             <>
               <thead className={css.invoiceThead} >
                 <tr >
-                  <th className={css.emptyCell}></th>
-                  <th className={css.emptyCell}></th>
+                  <th className={`${css.emptyCell} ${css.isHidden}`}></th>
+                  <th className={`${css.emptyCell} ${css.isHidden}`}></th>
                   <th >nazwa</th>
                   <th>cena za szt</th>
                   <th>liczba sztuk</th>
@@ -151,8 +151,8 @@ export const InvoiceData = ({ invoiceNo = "" }) => {
                 ) : (
                   items.map((item, index) => (
                     <tr key={item.nazwa ? `${item.nazwa}-${index}` : index}>
-                      <th className={css.emptyCell}></th>
-                      <th className={css.emptyCell}></th>
+                      <th className={`${css.emptyCell} ${css.isHidden}`}></th>
+                      <th className={`${css.emptyCell} ${css.isHidden}`}></th>
                       <td>{item.nazwa}</td>
                       <td>{formatPL(item.cena_za_szt)}</td>
                       <td>{item.liczba_sztuk}</td>

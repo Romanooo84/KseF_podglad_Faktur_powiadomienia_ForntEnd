@@ -54,12 +54,14 @@ function Home() {
         <div className={css.content}>
           {active === "invoices" && <InvoicesData />}
           {active === "schedule" && <PaymentSchedule />}
+          {active === "invoice" && 
           <div className={css.showSearch}>
-            {active === "invoice" && <InvoiceData />}
-          </div>
+            <InvoiceData />
+          </div>}
+          {active === "searchItem" &&
           <div className={css.showSearch}>
-            {active === "searchItem" && <SearchItem />}
-          </div>
+             <SearchItem />
+          </div>}
         </div>
       </div>
     </main>

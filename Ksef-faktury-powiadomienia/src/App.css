@@ -1,9 +1,35 @@
+:root{
+  --backgroundColor:   #ffffff;
+  --fontColor: #000;
+  --table-color1: #f0f0f0;
+  --table-color2: #a0a2a8;
+  --table-color3: #cdced1;
+  --table-color4: #83808079; 
+  --button-color: #74748365;
+  --button-hover-color: #6262b865;
+  --input-border-color1: #78787c;
+  --input-border-color2: #d11d35;
+
+
+}
+
 #root {
   margin: 0 auto;
-  padding: 2rem;
   text-align: center;
   width: 1500px;
   min-height: 100vh;
+  background-color: var(--backgroundColor);
+  color: var(--fontColor);
 }
+
+@media (max-width: 576px) { 
+  #root {
+    min-width: 360px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
 
 

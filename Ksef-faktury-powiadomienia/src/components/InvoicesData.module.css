@@ -1,0 +1,32 @@
+th{
+    width: 150px;
+    font-size: 20px;
+    height: 40px;
+}
+
+th:nth-child(even) {
+  background-color: var( --table-color1);
+}
+
+th:nth-child(odd) {
+  background-color: var(--table-color2);
+}
+
+thead {
+  border-bottom: 10px solid var(--backgroundColor);
+  border-top: 30px solid var(--backgroundColor);
+}
+
+@media (max-width: 576px) {
+  th{
+    max-width: 90px;
+    font-size: 12px;
+  }
+  td{
+    max-width: 50px;
+  }
+  .isHidden{
+    display: none;
+  }
+}
+

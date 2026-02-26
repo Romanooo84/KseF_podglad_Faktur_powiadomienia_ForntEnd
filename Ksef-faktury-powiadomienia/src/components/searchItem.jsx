@@ -25,8 +25,9 @@ export const SearchItem = () => {
 
   return (
     <>
-      <form onSubmit={handleSearch}>
+      <form onSubmit={handleSearch} className={css.input}>
         <input
+          
           type="text"
           id="searchItem"
           placeholder="Wpisz nazwę / EAN / index"

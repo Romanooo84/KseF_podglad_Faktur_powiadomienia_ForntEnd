@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { getInvoices } from "../functions/fetchToBackend";
 import { InvoiceData } from "./InvoiceData";
-import "./InvoicesData.css"
+import css from"./InvoicesData.module.css"
 
 export const InvoicesData = () => {
   const [invoices, setInvoices] = useState(null);
@@ -25,10 +25,10 @@ export const InvoicesData = () => {
             <th>firma</th>
             <th>nr faktury</th>
             <th>kwota</th>
-            <th>kwota netto</th>
-            <th>VAT</th>
-            <th>data faktury</th>
-            <th>termin</th>
+            <th className={css.isHidden}>kwota netto</th>
+            <th className={css.isHidden}>VAT</th>
+            <th className={css.isHidden}>data faktury</th>
+            <th className={css.isHidden}>termin</th>
             <th>akcja</th>
           </tr>
         </thead>
