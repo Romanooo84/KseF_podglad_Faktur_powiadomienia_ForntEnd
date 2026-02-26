@@ -29,6 +29,7 @@ export const InvoicesData = () => {
             <th>VAT</th>
             <th>data faktury</th>
             <th>termin</th>
+            <th>akcja</th>
           </tr>
         </thead>
           {Object.entries(invoices).map(([numerFaktury]) => (

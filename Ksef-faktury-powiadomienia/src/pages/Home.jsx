@@ -6,6 +6,7 @@ import { InvoiceData } from "../components/InvoiceData";
 import { SearchItem } from "../components/searchItem";
 import { logout } from "../functions/loginToBackend";
 import css from "./home.module.css";
+import logo from '../assets/Faktury-KSeF-API-REST-e1752601326284.jpg'
 
 function Home() {
   const navigate = useNavigate();
@@ -23,8 +24,11 @@ function Home() {
   return (
     <>
     <header>
-         <h1>Home</h1>
-        <button onClick={handleLogout}>Wyloguj</button>
+      <div className={css.headerDiv}>
+        <img className={css.logo}src={logo}></img>
+        <h1>MD Marzena Pisarska</h1>
+      </div>
+      <button onClick={handleLogout}>Wyloguj</button>
     </header>
     <main className={css.homeDiv}>
      
@@ -50,8 +54,12 @@ function Home() {
         <div className={css.content}>
           {active === "invoices" && <InvoicesData />}
           {active === "schedule" && <PaymentSchedule />}
-          {active === "invoice" && <InvoiceData />}
-          {active === "searchItem" && <SearchItem />}
+          <div className={css.showSearch}>
+            {active === "invoice" && <InvoiceData />}
+          </div>
+          <div className={css.showSearch}>
+            {active === "searchItem" && <SearchItem />}
+          </div>
         </div>
       </div>
     </main>

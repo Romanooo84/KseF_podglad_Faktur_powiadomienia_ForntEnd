@@ -1,5 +1,16 @@
 import { useEffect, useState } from "react";
 import { getInvoice } from "../functions/fetchToBackend";
+import css from './InvoiceData.module.css'
+
+const formatPL = (value) => {
+    if (!value) return "0";
+
+    const [integer, decimal] = String(value).split(".");
+
+    const withSpaces = integer.replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+
+    return decimal ? `${withSpaces}.${decimal}` : withSpaces;;
+};
 
 // invoiceNo jest opcjonalny: <InvoiceData /> albo <InvoiceData invoiceNo="FV/12/2026" />
 export const InvoiceData = ({ invoiceNo = "" }) => {
@@ -51,8 +62,9 @@ export const InvoiceData = ({ invoiceNo = "" }) => {
   return (
     <>
       {showSearch && (
-        <div>
+        <div className={css.input}>
           <input
+            id='search'
             value={invoiceNumber}
             onChange={(e) => setInvoiceNumber(e.target.value)}
             placeholder="Wpisz numer faktury"
@@ -80,17 +92,23 @@ export const InvoiceData = ({ invoiceNo = "" }) => {
                   <th>VAT</th>
                   <th>Data faktury</th>
                   <th>Termin płatności</th>
+                  <th>Akcja</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td>{invoice.NazwaFirmy}</td>
                   <td>{invoice.nrFaktury}</td>
-                  <td>{invoice.kwota} zł</td>
-                  <td>{invoice.kwota_netto} zł</td>
-                  <td>{invoice.VAT} zł</td>
+                  <td>{formatPL(invoice.kwota)} zł</td>
+                  <td>{formatPL(invoice.kwota_netto)} zł</td>
+                  <td>{formatPL(invoice.VAT)} zł</td>
                   <td>{invoice.data_faktury}</td>
                   <td>{invoice.terminPlatnosci??'----'}</td>
+                  <td>
+                    <button className={css.shownButton} type="button" onClick={() => setIsItemsShown((v) => !v)}>
+                      {isItemsShown ? "Ukryj zawartość faktury" : "Pokaż zawartość faktury"}
+                    </button>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -98,29 +116,34 @@ export const InvoiceData = ({ invoiceNo = "" }) => {
             <tr>
               <td>{invoice.NazwaFirmy}</td>
               <td>{invoice.nrFaktury}</td>
-              <td>{invoice.kwota} zł</td>
-              <td>{invoice.kwota_netto} zł</td>
-              <td>{invoice.VAT} zł</td>
+              <td>{formatPL(invoice.kwota)} zł</td>
+              <td>{formatPL(invoice.kwota_netto)} zł</td>
+              <td>{formatPL(invoice.VAT)} zł</td>
               <td>{invoice.data_faktury}</td>
               <td>{invoice.terminPlatnosci??'----'}</td>
+              <td>
+                <button className={css.shownButton} type="button" onClick={() => setIsItemsShown((v) => !v)}>
+                  {isItemsShown ? "Ukryj zawartość faktury" : "Pokaż zawartość faktury"}
+                </button>
+              </td>
             </tr>
           )}
 
-          <button type="button" onClick={() => setIsItemsShown((v) => !v)}>
-            {isItemsShown ? "Ukryj zawartość faktury" : "Pokaż zawartość faktury"}
-          </button>
+          
 
           {isItemsShown && (
-            <table>
-              <thead>
-                <tr>
-                  <th>nazwa</th>
+            <>
+              <thead className={css.invoiceThead} >
+                <tr >
+                  <th className={css.emptyCell}></th>
+                  <th className={css.emptyCell}></th>
+                  <th >nazwa</th>
                   <th>cena za szt</th>
                   <th>liczba sztuk</th>
                   <th>kwota</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody className={css.invoiceTbody}>
                 {items.length === 0 ? (
                   <tr>
                     <td colSpan={4}>Brak pozycji na fakturze</td>
@@ -128,15 +151,17 @@ export const InvoiceData = ({ invoiceNo = "" }) => {
                 ) : (
                   items.map((item, index) => (
                     <tr key={item.nazwa ? `${item.nazwa}-${index}` : index}>
+                      <th className={css.emptyCell}></th>
+                      <th className={css.emptyCell}></th>
                       <td>{item.nazwa}</td>
-                      <td>{item.cena_za_szt}</td>
+                      <td>{formatPL(item.cena_za_szt)}</td>
                       <td>{item.liczba_sztuk}</td>
-                      <td >{item.kwota}</td>
+                      <td>{formatPL(item.kwota)}</td>
                     </tr>
                   ))
                 )}
               </tbody>
-            </table>
+            </>
           )}
         </>
       )}

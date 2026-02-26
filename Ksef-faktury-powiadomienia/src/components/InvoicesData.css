@@ -9,9 +9,22 @@ th:nth-child(even) {
 }
 
 th:nth-child(odd) {
-  background-color: #8c95ad;
+  background-color: #a0a2a8;
 }
 
-thead th{
-  border-bottom: 30px solid white;
+thead {
+  border-bottom: 10px solid white;
+  border-top: 30px solid white;
+}
+
+table{
+  border-collapse: collapse;
+   white-space: normal;        /* pozwala łamać linie */
+  word-break: break-word;     /* łamie długie słowa */
+  overflow-wrap: break-word;  /* nowoczesna wersja */
+  
+}
+
+tbody{
+  border-bottom: 20px solid white
 }

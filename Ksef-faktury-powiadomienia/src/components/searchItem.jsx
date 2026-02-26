@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { getItem } from "../functions/fetchToBackend";
 import { InvoiceData } from "./InvoiceData";
+import css from "./searchItem.module.css"
 
 export const SearchItem = () => {
   const [search, setSearch] = useState("");
@@ -23,10 +24,11 @@ export const SearchItem = () => {
   };
 
   return (
-    <div>
+    <>
       <form onSubmit={handleSearch}>
         <input
           type="text"
+          id="searchItem"
           placeholder="Wpisz nazwę / EAN / index"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
@@ -50,7 +52,6 @@ export const SearchItem = () => {
                 
             </tr>
           </thead>
-          <tbody>
            {item.map((data, index) => {
                 return (
             
@@ -61,9 +62,8 @@ export const SearchItem = () => {
 
                 );
              })}
-          </tbody>
         </table>
       )}
-    </div>
+    </>
   );
 };

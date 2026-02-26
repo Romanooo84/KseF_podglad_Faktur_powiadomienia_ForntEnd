@@ -1,9 +1,16 @@
 import { useState } from "react";
 import { getHarmonogram } from "../functions/fetchToBackend";
+import css from './paymentShcedule.module.css'
 
 export const PaymentSchedule = () => {
   const [schedule, setSchedule] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  const formatPL = (value) =>
+  new Intl.NumberFormat("pl-PL", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(Number(value));
 
   if (!schedule && !isLoading) {
     setIsLoading(true);
@@ -26,8 +33,8 @@ export const PaymentSchedule = () => {
       <tbody>
         {schedule.map((h) => (
           <tr key={h.weekKey}>
-            <td>{h.weekKey}</td>
-            <td>{h.total} zł</td>
+            <td className={css.td}>{h.weekKey}</td>
+            <td className={css.td}>{formatPL(h.total)} zł</td>
           </tr>
         ))}
       </tbody>

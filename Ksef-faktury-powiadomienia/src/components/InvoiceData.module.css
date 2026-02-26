@@ -1,0 +1,50 @@
+.input{
+    display: flex;
+    gap: 50px;
+    justify-content: center;
+}
+
+input{
+    width: 300px;
+    border-radius: 25px;
+    border: 2px solid blue
+}
+
+input:focus {
+  border: 2px solid #f54c4c;
+  outline: none;   /* usuwa domyślną niebieską obwódkę przeglądarki */
+}
+
+td{
+    max-width: 150px;
+    font-size: 12px;
+}
+
+tr:nth-child(even) {
+  background-color: #f0f0f0;
+}
+
+tr:nth-child(odd) {
+  background-color: #cdced1;
+}
+
+td:last-child{
+    min-width: 150px;
+    background-color: white;
+}
+
+.shownButton{
+    width: 100px;
+}
+
+.invoiceThead th{
+    border-top: 10px solid white;
+}
+
+.invoiceTbody tr {
+  background: white;
+}
+
+.emptyCell{
+    background-color: white !important;
+}
