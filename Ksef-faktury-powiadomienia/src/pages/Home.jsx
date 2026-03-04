@@ -2,8 +2,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { InvoicesData } from "../components/InvoicesData";
 import { PaymentSchedule } from "../components/paymentShcedule";
-import { InvoiceData } from "../components/InvoiceData";
-import { SearchItem } from "../components/searchItem";
 import { logout } from "../functions/loginToBackend";
 import css from "./home.module.css";
 import logo from '../assets/Faktury-KSeF-API-REST-e1752601326284.jpg'
@@ -41,27 +39,11 @@ function Home() {
           <button type="button" onClick={() => toggle("schedule")}>
             {active === "schedule" ? "Ukryj harmonogram" : "Harmonogram płatności"}
           </button>
-
-          <button type="button" onClick={() => toggle("invoice")}>
-            {active === "invoice" ? "Ukryj fakturę" : "Szukaj faktury"}
-          </button>
-
-          <button type="button" onClick={() => toggle("searchItem")}>
-            {active === "searchItem" ? "Ukryj wyszukiwanie" : "Szukaj pozycji na fakturach"}
-          </button>
         </div>
 
         <div className={css.content}>
           {active === "invoices" && <InvoicesData />}
           {active === "schedule" && <PaymentSchedule />}
-          {active === "invoice" && 
-          <div className={css.showSearch}>
-            <InvoiceData />
-          </div>}
-          {active === "searchItem" &&
-          <div className={css.showSearch}>
-             <SearchItem />
-          </div>}
         </div>
       </div>
     </main>

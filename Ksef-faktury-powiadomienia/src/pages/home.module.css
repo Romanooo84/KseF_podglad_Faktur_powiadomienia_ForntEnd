@@ -65,6 +65,7 @@ button:hover{
     gap: 50px
 }
 
+
 @media (max-width: 576px) { 
     button{
         width: 90px;

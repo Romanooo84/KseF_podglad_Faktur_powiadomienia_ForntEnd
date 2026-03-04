@@ -19,4 +19,8 @@
     flex-direction: column;
 }
 
-
+@media (max-width: 576px) {
+    .loginDiv{
+        flex-direction: column;
+    }
+}

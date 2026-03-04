@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getInvoice } from "../functions/fetchToBackend";
 import css from './InvoiceData.module.css'
+import { FaFileDownload } from "react-icons/fa"
 
 const formatPL = (value) => {
     if (!value) return "0";
@@ -31,7 +32,6 @@ export const InvoiceData = ({ invoiceNo = "" }) => {
     try {
       const data = await getInvoice(number);
       setInvoice(data);
-      console.log(data)
 
     } catch (err) {
       setInvoice(null);

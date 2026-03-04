@@ -1,6 +1,9 @@
 
+const link = "https://organizerfaktur.pl";
+//const link = "http://localhost:3000";
+
 const loginToBackend = async (login, password) => {
-  const res = await fetch("https://organizerfaktur.pl/auth/login", {
+  const res = await fetch(`${link}/auth/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     credentials: "include",
@@ -29,7 +32,7 @@ const loginToBackend = async (login, password) => {
 
 const logout = async () => {
   try {
-    await fetch("https://organizerfaktur.pl/auth/logout", {
+    await fetch(`${link}/auth/logout`, {
       method: "POST",
       credentials: "include",
     });
@@ -39,9 +42,9 @@ const logout = async () => {
 };
 
 const getIp  =async() => {
-  const r = await fetch("https://organizerfaktur.pl/getip", {
-    credentials: "include",
-  });
+  const r = await fetch(`${link}/getip`, 
+   { credentials: "include" }
+  );
 
   return (await r.json());
 }

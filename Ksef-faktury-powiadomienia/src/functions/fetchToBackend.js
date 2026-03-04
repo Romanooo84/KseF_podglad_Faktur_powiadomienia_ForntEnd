@@ -1,4 +1,5 @@
 const link = "https://organizerfaktur.pl";
+//const link = "http://localhost:3000";
 
 export const fetchWithAuth = async (url, options = {}) => {
   const res = await fetch(url, {
@@ -12,10 +13,12 @@ export const fetchWithAuth = async (url, options = {}) => {
     return;
   }
 
+
   return res;
 };
 
 export const getInvoices = async () => {
+  console.log(`${link}/invoices`)
   const res = await fetchWithAuth(`${link}/invoices`);
 
   const text = await res.text();
@@ -29,7 +32,9 @@ export const getInvoices = async () => {
 
 export const getHarmonogram = async () => {
   const res = await fetchWithAuth(`${link}/harmonogram`);
-  return await res.json();
+  const data = await res.json();
+  console.log(data)
+  return data;
 };
 
 export const getInvoice = async (invoiceNumber) => {
@@ -56,4 +61,36 @@ export const getItem = async (item) => {
   const data=await res.json()
   console.log(data)
   return data;
+};
+
+export const getFileToImport = async (invoiceNumber) => {
+  const res = await fetchWithAuth(
+    `${link}/importfile?invoicenumber=${encodeURIComponent(invoiceNumber)}`
+  );
+
+  if (!res.ok) {
+    // backend zwraca JSON przy błędzie
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.error || err.message || "Błąd pobierania pliku");
+  }
+
+  // ✅ to jest plik → blob
+  const blob = await res.blob();
+
+  // opcjonalnie: nazwa z nagłówka Content-Disposition
+  const cd = res.headers.get("content-disposition") || "";
+  const match = cd.match(/filename\*?=(?:UTF-8''|")?([^";\n]+)(?:")?/i);
+  const filename = match ? decodeURIComponent(match[1]) : `${invoiceNumber}.txt`;
+
+  // wymuś pobranie
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  window.URL.revokeObjectURL(url);
+
+  return { ok: true, filename };
 };

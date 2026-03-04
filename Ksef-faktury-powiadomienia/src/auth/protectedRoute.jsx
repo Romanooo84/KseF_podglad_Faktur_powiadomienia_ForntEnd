@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 
+const link='https://organizerfaktur.pl'
+//const link='http://loclahost:3000'
+
 const ProtectedRoute = ({ children }) => {
   const [status, setStatus] = useState("loading");
 
@@ -9,7 +12,7 @@ const ProtectedRoute = ({ children }) => {
 
     (async () => {
       try {
-        const r = await fetch("https://organizerfaktur.pl/getip", {
+        const r = await fetch(`${link}/getip`, {
           credentials: "include",
         });
 

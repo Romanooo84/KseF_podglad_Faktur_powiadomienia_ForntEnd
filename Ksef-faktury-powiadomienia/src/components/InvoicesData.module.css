@@ -1,8 +1,15 @@
+table{
+  border-collapse: collapse;
+  text-overflow: ellipsis
+}
+
 th{
     width: 150px;
     font-size: 20px;
     height: 40px;
 }
+
+
 
 th:nth-child(even) {
   background-color: var( --table-color1);
@@ -17,6 +24,98 @@ thead {
   border-top: 30px solid var(--backgroundColor);
 }
 
+.input{
+    display: flex;
+    justify-content: center;
+    
+}
+
+input{
+    width: 300px;
+    height: 50px;
+    border-radius: 25px;
+    border: 2px solid var(--input-border-color1)
+}
+
+tr:last-child{
+  border-bottom: 20px solid var(--backgroundColor);
+}
+
+input:focus {
+  border: 2px solid var(--input-border-color2);
+  outline: none;   /* usuwa domyślną niebieską obwódkę przeglądarki */
+}
+
+td{
+    max-width: 150px;
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+tr:nth-child(even) {
+  background-color: var(--table-color1);
+}
+
+tr:nth-child(odd) {
+  background-color: var(--table-color3);
+}
+
+td:last-child{
+    background-color: transparent;
+    margin-right: -2px;
+    min-width: 100px
+}
+
+.emptyCell{
+    background-color: var(--backgroundColor) !important;
+}
+
+.buttonsTd{
+  display: flex;
+  flex-direction: row;
+  background-color: transparent;
+  justify-content: flex-end;
+}
+
+ .showButton{
+    width: 150px;
+    border-radius: 0;
+    padding: 0;
+    background-color: transparent;
+}
+
+.invoiceThead th{
+    border-top: 10px solid var(--backgroundColor);
+}
+
+.invoiceTbody tr {
+  background: var(--backgroundColor);
+}
+
+.trItems{
+    border-bottom: 10px solid var(--backgroundColor);
+     border-top: 20px solid var(--backgroundColor);
+}
+
+.icon, 
+.iconOpen,
+.iconClose{
+  width: 25px;
+  height: 25px
+}
+
+.iconClose{
+  fill: rgb(124, 40, 40) !important;
+}
+.iconOpen{
+  fill: rgb(49, 18, 105) !important;
+}
+.icon{
+  fill: rgb(18, 105, 47) !important;
+}
+
 @media (max-width: 576px) {
   th{
     max-width: 90px;
@@ -27,6 +126,26 @@ thead {
   }
   .isHidden{
     display: none;
+  }
+  .backroundColorPhone{
+    background-color: var(--table-color1) !important;
+  }
+
+   .backroundColorPhone2{
+    background-color: var(--table-color2) !important;
+  }
+
+  .showButton{
+    width: 90px;
+  }
+
+  .input{
+    gap:10px;
+    margin-bottom: 30px;
+  }
+
+  input{
+    width: 250px;
   }
 }
 
